@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hukum Kekekalan Massa</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#3d2821);margin:0;padding:20px;}
+.container{max-width:900px;margin:auto;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,255,255,0.25);color:white;border:2px solid white;border-radius:20px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;margin-bottom:16px;transition:0.2s;}
+.back-btn:hover{background:rgba(255,255,255,0.4);}
+.card{background:white;padding:25px;border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.15);}
+h2{text-align:center;margin-bottom:6px;}
+.subtitle{text-align:center;color:#ffffff;font-size:14px;margin-bottom:20px;}
+.topic-header{background:white;color:black;padding:12px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;font-size:15px;}
+.progress-label{font-size:12px;color:#888;text-align:right;margin-bottom:5px;}
+.progress{height:10px;background:#ddd;border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.progress-bar{height:100%;width:0%;background:#4caf50;transition:0.3s;}
+.question{margin-bottom:20px;padding:15px;border-radius:10px;background:#f9fafc;}
+.question p{font-weight:600;margin-bottom:8px;}
+label{display:block;padding:8px 10px;margin:5px 0;border-radius:8px;cursor:pointer;transition:0.2s;border:1px solid transparent;}
+label:hover{background:#e3f2fd;border-color:#b3d9f7;}
+button{padding:12px 18px;border:none;border-radius:10px;font-size:16px;cursor:pointer;margin:10px 5px;font-family:'Poppins',sans-serif;}
+.btn-submit{background:#4caf50;color:white;}
+.btn-reset{background:#f44336;color:white;}
+.result{text-align:center;font-size:22px;font-weight:bold;margin-top:20px;}
+.result-detail{text-align:center;font-size:14px;color:#555;margin-top:8px;margin-bottom:10px;}
+.explanation{margin-top:8px;font-size:13.5px;line-height:1.6;padding:8px 10px;border-radius:6px;background:#f0f0f0;}
+.correct{color:green;font-weight:600;}
+.wrong{color:red;font-weight:600;}
+sub{vertical-align:sub;font-size:0.8em;}
+sup{vertical-align:super;font-size:0.8em;}
+.option-label{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:#e0e0e0;font-size:12px;font-weight:600;margin-right:8px;}
+</style>
+</head>
+<body>
+<h2>🧪 Latihan Soal </h2>
+<p class="subtitle">Hukum-Hukum Dasar Kimia &mdash; 10 Soal Pilihan Ganda </p>
+<div class="topic-header">⚖️ Hukum Kekekalan Massa (Lavoisier)</div>
+<div class="progress-label"><span id="progressLabel">0 / 10 dijawab</span></div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<form id="quizForm"></form>
+<div style="text-align:center">
+  <button class="btn-submit" onclick="submitQuiz()">✅ Selesai</button>
+  <button class="btn-reset" onclick="resetQuiz()">🔄 Reset</button>
+</div>
+<div class="result" id="result"></div>
+<div class="result-detail" id="resultDetail"></div>
+</div>
+</div>
+<script>
+const questions = [
+  {
+    q:"1. Sebanyak 10 g besi (Fe) dibakar di udara menghasilkan 14,3 g Fe<sub>2</sub>O<sub>3</sub>. Massa oksigen yang bereaksi adalah...",
+    options:["3,0 g","3,3 g","4,3 g","4,0 g","5,0 g"],
+    answer:2,
+    explanation:"Menurut hukum kekekalan massa: massa O<sub>2</sub> = massa produk − massa reaktan = 14,3 − 10 = 4,3 g."
+  },
+  {
+    q:"2. Pada reaksi: CaCO<sub>3</sub> → CaO + CO<sub>2</sub>, jika 100 g CaCO<sub>3</sub> menghasilkan 56 g CaO, maka massa CO<sub>2</sub> yang dihasilkan adalah...",
+    options:["40 g","42 g","44 g","46 g","54 g"],
+    answer:2,
+    explanation:"Massa CO<sub>2</sub> = 100 − 56 = 44 g, sesuai hukum kekekalan massa bahwa total massa reaktan = total massa produk."
+  },
+  {
+    q:"3. Sebuah kayu bermassa 500 g dibakar dalam wadah tertutup. Setelah pembakaran, massa abu + gas = 500 g. Kesimpulan yang PALING tepat adalah...",
+    options:["Ada massa yang hilang menjadi energi","Hukum kekekalan massa berlaku pada sistem tertutup","Massa gas lebih besar dari abu","Reaksi tidak sempurna","Suhu mempengaruhi massa total"],
+    answer:1,
+    explanation:"Dalam sistem tertutup, total massa sebelum dan sesudah reaksi selalu sama. Ini membuktikan hukum kekekalan massa Lavoisier."
+  },
+  {
+    q:"4. Reaksi: 2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O. Jika 4 g H<sub>2</sub> bereaksi sempurna menghasilkan 36 g H<sub>2</sub>O, maka massa O<sub>2</sub> yang bereaksi adalah...",
+    options:["28 g","30 g","32 g","34 g","36 g"],
+    answer:2,
+    explanation:"Massa O<sub>2</sub> = massa produk − massa H<sub>2</sub> = 36 − 4 = 32 g."
+  },
+  {
+    q:"5. Mengapa pembakaran kayu di udara terbuka tampak kehilangan massa, padahal hukum kekekalan massa menyatakan massa tetap?",
+    options:[
+      "Hukum kekekalan massa tidak berlaku untuk reaksi organik",
+      "Sebagian massa kayu berubah menjadi energi panas",
+      "Gas CO<sub>2</sub> dan H<sub>2</sub>O yang terbentuk lepas ke udara sehingga tidak ikut ditimbang",
+      "Abu yang tersisa lebih ringan karena suhu tinggi",
+      "Oksigen dari udara tidak dihitung sebagai reaktan"
+    ],
+    answer:2,
+    explanation:"Massa total sistem tetap, namun gas CO<sub>2</sub> dan uap H<sub>2</sub>O yang dihasilkan lepas ke udara sehingga abu yang tersisa tampak lebih ringan dari kayu awal."
+  },
+  {
+    q:"6. 25 g larutan AgNO<sub>3</sub> dicampurkan dengan 25 g larutan NaCl, terbentuk endapan putih AgCl. Massa campuran setelah reaksi adalah...",
+    options:["Kurang dari 50 g","Tepat 50 g","Lebih dari 50 g","Bergantung suhu larutan","Bergantung pada konsentrasi"],
+    answer:1,
+    explanation:"Total massa sistem tidak berubah = 25 + 25 = 50 g, sesuai hukum kekekalan massa (tidak ada gas yang lepas dalam sistem tertutup)."
+  },
+  {
+    q:"7. Jika 8 g S (Ar=32) direaksikan dengan 8 g O<sub>2</sub> (Mr=32) menghasilkan SO<sub>2</sub>, manakah pernyataan yang BENAR?",
+    options:[
+      "S bersisa karena mol O<sub>2</sub> lebih banyak",
+      "O<sub>2</sub> bersisa karena massa O<sub>2</sub> lebih kecil",
+      "Semua S dan O<sub>2</sub> habis bereaksi menghasilkan 16 g SO<sub>2</sub>",
+      "SO<sub>2</sub> yang terbentuk kurang dari 16 g",
+      "Reaksi tidak bisa berlangsung karena massa sama"
+    ],
+    answer:2,
+    explanation:"8 g S = 0,25 mol; 8 g O<sub>2</sub> = 0,25 mol. Perbandingan mol S:O<sub>2</sub> = 1:1 sesuai stoikiometri SO<sub>2</sub>. Semua habis bereaksi → massa SO<sub>2</sub> = 8 + 8 = 16 g."
+  },
+  {
+    q:"8. Magnesium dibakar: 12 g Mg + O<sub>2</sub> → 20 g MgO. Massa oksigen yang bereaksi dan perbandingan Mg:O dalam MgO adalah...",
+    options:["6 g; 2:1","8 g; 3:2","10 g; 6:5","4 g; 1:3","8 g; 2:3"],
+    answer:1,
+    explanation:"Massa O = 20 − 12 = 8 g. Perbandingan Mg:O = 12:8 = 3:2, sesuai Ar Mg=24 dan O=16 → 24:16 = 3:2."
+  },
+  {
+    q:"9. Fe + S → FeS. Jika 7 g Fe direaksikan dengan 4 g S dan tersisa 1 g S yang tidak bereaksi, maka massa FeS yang terbentuk adalah...",
+    options:["8 g","9 g","10 g","11 g","12 g"],
+    answer:2,
+    explanation:"S yang bereaksi = 4 − 1 = 3 g. Massa FeS = massa Fe + massa S bereaksi = 7 + 3 = 10 g (hukum kekekalan massa)."
+  },
+  {
+    q:"10. Analisis berikut yang PALING menjelaskan mengapa hukum kekekalan massa berlaku pada reaksi kimia adalah...",
+    options:[
+      "Energi selalu dilepaskan dalam reaksi kimia",
+      "Jumlah molekul sebelum dan sesudah reaksi selalu sama",
+      "Volume larutan tidak berubah setelah reaksi",
+      "Atom-atom hanya berpindah dan bergabung kembali membentuk molekul baru tanpa ada atom yang hilang",
+      "Suhu sistem selalu konstan dalam reaksi kimia"
+    ],
+    answer:3,
+    explanation:"Reaksi kimia hanya melibatkan pemutusan dan pembentukan ikatan antar atom. Atom tidak diciptakan atau dimusnahkan, sehingga jumlah dan massa atom total tetap sama."
+  }
+];
+
+const LABELS = ['A','B','C','D','E'];
+const form = document.getElementById('quizForm');
+
+questions.forEach((item,index)=>{
+  let html=`<div class="question"><p>${item.q}</p>`;
+  item.options.forEach((opt,i)=>{
+    html+=`<label><input type="radio" name="q${index}" value="${i}" onchange="updateProgress()"> <span class="option-label">${LABELS[i]}</span>${opt}</label>`;
+  });
+  html+=`<div id="exp${index}" class="explanation" style="display:none"></div></div>`;
+  form.innerHTML+=html;
+});
+
+function updateProgress(){
+  let answered=document.querySelectorAll('input[type=radio]:checked').length;
+  let pct=(answered/questions.length)*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent=`${answered} / ${questions.length} dijawab`;
+}
+
+function submitQuiz(){
+  if(event) event.preventDefault();
+  let score=0,unanswered=0;
+  questions.forEach((item,index)=>{
+    const sel=document.querySelector(`input[name="q${index}"]:checked`);
+    const exp=document.getElementById(`exp${index}`);
+    exp.style.display='block';
+    if(sel){
+      if(parseInt(sel.value)===item.answer){
+        score++;
+        exp.innerHTML=`<span class='correct'>✔ Benar!</span> — ${item.explanation}`;
+      } else {
+        exp.innerHTML=`<span class='wrong'>✘ Salah</span> (Jawaban benar: <strong>${LABELS[item.answer]}</strong>) — ${item.explanation}`;
+      }
+    } else {
+      unanswered++;
+      exp.innerHTML=`<span class='wrong'>Tidak dijawab</span> (Jawaban benar: <strong>${LABELS[item.answer]}</strong>) — ${item.explanation}`;
+    }
+  });
+  const nilai=score*10;
+  const grade=nilai>=90?'🏆 Luar Biasa!':nilai>=70?'👍 Bagus!':nilai>=50?'😊 Cukup':'📚 Perlu Belajar Lagi';
+  document.getElementById('result').innerHTML=`Nilai Kamu: ${nilai} &mdash; ${grade}`;
+  document.getElementById('resultDetail').innerHTML=`Benar: ${score} &nbsp;|&nbsp; Salah: ${questions.length-score-unanswered} &nbsp;|&nbsp; Tidak dijawab: ${unanswered}`;
+}
+
+function resetQuiz(){
+  form.reset();
+  document.getElementById('result').innerHTML='';
+  document.getElementById('resultDetail').innerHTML='';
+  document.querySelectorAll('.explanation').forEach(e=>{e.innerHTML='';e.style.display='none';});
+  document.getElementById('progressBar').style.width='0%';
+  document.getElementById('progressLabel').textContent='0 / '+questions.length+' dijawab';
+}
+</script>
+</body>
+</html>
